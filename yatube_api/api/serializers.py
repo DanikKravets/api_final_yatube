@@ -8,6 +8,7 @@ from posts.models import Comment, Follow, Group, Post, User
 
 
 class Base64ImageField(serializers.ImageField):
+    """Serializer for processing images uploaded in base64."""
     def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
             format, imgstr = data.split(';base64,')
@@ -36,7 +37,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    """""Comment Serializer"""
+    """Comment Serializer"""
     author = SlugRelatedField(
         read_only=True,
         slug_field='username',
